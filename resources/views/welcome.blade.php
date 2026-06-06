@@ -490,49 +490,47 @@
             <p class="section-subtitle">Eksplorasi visual dari berbagai industri yang telah kami tangani.</p>
 
             <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <!-- Image placeholder representing logo mockups -->
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Minimalist Logo Design Mockup">
-                    <div class="portfolio-overlay">
-                        <h3>Aura Skincare</h3>
-                        <p>Minimalist / Wordmark</p>
+                @if($portfolios->isNotEmpty())
+                    @foreach($portfolios as $portfolio)
+                    <div class="portfolio-item">
+                        <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}">
+                        <div class="portfolio-overlay">
+                            <h3>{{ $portfolio->title }}</h3>
+                            <p>{{ $portfolio->category }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1636114673156-052a83459fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tech Startup Logo">
-                    <div class="portfolio-overlay">
-                        <h3>Nexus Tech</h3>
-                        <p>Modern / Geometric</p>
+                    @endforeach
+                @else
+                    <div class="portfolio-item">
+                        <!-- Image placeholder representing logo mockups -->
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Minimalist Logo Design Mockup">
+                        <div class="portfolio-overlay">
+                            <h3>Aura Skincare</h3>
+                            <p>Minimalist / Wordmark</p>
+                        </div>
                     </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coffee Shop Branding">
-                    <div class="portfolio-overlay">
-                        <h3>Brew & Co.</h3>
-                        <p>Vintage / Emblem</p>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1636114673156-052a83459fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tech Startup Logo">
+                        <div class="portfolio-overlay">
+                            <h3>Nexus Tech</h3>
+                            <p>Modern / Geometric</p>
+                        </div>
                     </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Corporate Branding">
-                    <div class="portfolio-overlay">
-                        <h3>Pinnacle Capital</h3>
-                        <p>Corporate / Monogram</p>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coffee Shop Branding">
+                        <div class="portfolio-overlay">
+                            <h3>Brew & Co.</h3>
+                            <p>Vintage / Emblem</p>
+                        </div>
                     </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Creative Agency Logo">
-                    <div class="portfolio-overlay">
-                        <h3>Studio Nova</h3>
-                        <p>Abstract / Creative</p>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Corporate Branding">
+                        <div class="portfolio-overlay">
+                            <h3>Pinnacle Capital</h3>
+                            <p>Corporate / Monogram</p>
+                        </div>
                     </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="App Icon Logo">
-                    <div class="portfolio-overlay">
-                        <h3>FinFlow App</h3>
-                        <p>App Icon / Gradient</p>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </section>
