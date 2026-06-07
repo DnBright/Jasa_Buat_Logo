@@ -114,6 +114,30 @@
                     </div>
                 </div>
 
+                <!-- Section: Bank Transfer / Pembayaran -->
+                <div class="bg-white p-6 shadow sm:rounded-lg">
+                    <h3 class="text-lg font-medium text-gray-900 border-b pb-3 mb-6">
+                        {{ __('Pengaturan Invoice & Rekening Bank') }}
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <x-input-label for="bank_name" :value="__('Nama Bank')" />
+                            <x-text-input id="bank_name" name="bank_name" type="text" class="mt-1 block w-full" :value="old('bank_name', $settings->bank_name)" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('bank_name')" />
+                        </div>
+                        <div>
+                            <x-input-label for="bank_account_number" :value="__('Nomor Rekening')" />
+                            <x-text-input id="bank_account_number" name="bank_account_number" type="text" class="mt-1 block w-full" :value="old('bank_account_number', $settings->bank_account_number)" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('bank_account_number')" />
+                        </div>
+                        <div>
+                            <x-input-label for="bank_account_holder" :value="__('Nama Pemilik Rekening')" />
+                            <x-text-input id="bank_account_holder" name="bank_account_holder" type="text" class="mt-1 block w-full" :value="old('bank_account_holder', $settings->bank_account_holder)" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('bank_account_holder')" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex items-center gap-4">
                     <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
                         {{ __('Simpan Perubahan') }}

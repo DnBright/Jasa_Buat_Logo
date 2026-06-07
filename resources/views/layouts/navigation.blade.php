@@ -15,11 +15,23 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                        {{ __('Pesanan') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('portfolios.index')" :active="request()->routeIs('portfolios.*')">
                         {{ __('Portofolio') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('testimonials.index')" :active="request()->routeIs('testimonials.*')">
+                        {{ __('Testimoni') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')">
+                        {{ __('Blog') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                        {{ __('Pengguna') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.*')">
-                        {{ __('Pengaturan Website') }}
+                        {{ __('Pengaturan') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -76,11 +88,23 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                {{ __('Pesanan') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('portfolios.index')" :active="request()->routeIs('portfolios.*')">
                 {{ __('Portofolio') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('testimonials.index')" :active="request()->routeIs('testimonials.*')">
+                {{ __('Testimoni') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')">
+                {{ __('Blog') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                {{ __('Pengguna') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.*')">
-                {{ __('Pengaturan Website') }}
+                {{ __('Pengaturan') }}
             </x-responsive-nav-link>
         </div>
 
