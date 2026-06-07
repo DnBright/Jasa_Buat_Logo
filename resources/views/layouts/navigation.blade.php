@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('portfolios.index')" :active="request()->routeIs('portfolios.*')">
                         {{ __('Portofolio') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.*')">
+                        {{ __('Pengaturan Website') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +78,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('portfolios.index')" :active="request()->routeIs('portfolios.*')">
                 {{ __('Portofolio') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.*')">
+                {{ __('Pengaturan Website') }}
             </x-responsive-nav-link>
         </div>
 

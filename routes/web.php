@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteSettingController;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $portfolios = \App\Models\Portfolio::all();
-    return view('welcome', compact('portfolios'));
+    $settings = SiteSetting::getSettings();
+    return view('welcome', compact('portfolios', 'settings'));
 });
 
 Route::get('/dashboard', function () {
@@ -19,6 +22,8 @@ Route::middleware('auth')->group(function () {
     
     // Admin Routes
     Route::resource('admin/portfolios', \App\Http\Controllers\PortfolioController::class);
+    Route::get('admin/settings', [SiteSettingController::class, 'edit'])->name('admin.settings.edit');
+    Route::put('admin/settings', [SiteSettingController::class, 'update'])->name('admin.settings.update');
 });
 
 require __DIR__.'/auth.php';
