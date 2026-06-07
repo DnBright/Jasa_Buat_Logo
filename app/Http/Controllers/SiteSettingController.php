@@ -31,6 +31,9 @@ class SiteSettingController extends Controller
             'dribbble_url' => 'required|string|max:255',
             'behance_url' => 'required|string|max:255',
             'linkedin_url' => 'required|string|max:255',
+            'bank_name' => 'required|string|max:255',
+            'bank_account_number' => 'required|string|max:255',
+            'bank_account_holder' => 'required|string|max:255',
         ]);
 
         $settings->update($validated);

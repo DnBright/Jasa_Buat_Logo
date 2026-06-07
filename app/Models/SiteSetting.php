@@ -19,6 +19,9 @@ class SiteSetting extends Model
         'dribbble_url',
         'behance_url',
         'linkedin_url',
+        'bank_name',
+        'bank_account_number',
+        'bank_account_holder',
     ];
 
     /**
@@ -41,6 +44,9 @@ class SiteSetting extends Model
                 'dribbble_url' => '#',
                 'behance_url' => '#',
                 'linkedin_url' => '#',
+                'bank_name' => 'Bank BCA',
+                'bank_account_number' => '1234567890',
+                'bank_account_holder' => 'Logofolio Agency',
             ]);
         }
         return $settings;

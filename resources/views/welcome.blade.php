@@ -554,7 +554,7 @@
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> Brand Guidelines Book</li>
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> Desain Kartu Nama</li>
                     </ul>
-                    <a href="https://wa.me/{{ $settings->contact_whatsapp }}?text=Halo,%20saya%20tertarik%20dengan%20Paket%20Startup" target="_blank" class="btn-outline">Pilih Startup</a>
+                    <a href="#order-form" onclick="selectPackage('Startup')" class="btn-outline">Pilih Startup</a>
                 </div>
                 
                 <!-- Pro Plan -->
@@ -571,7 +571,7 @@
                         <li><i class="fa-solid fa-check"></i> Desain Kartu Nama & Kop Surat</li>
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> 3D Logo Mockup Animation</li>
                     </ul>
-                    <a href="https://wa.me/{{ $settings->contact_whatsapp }}?text=Halo,%20saya%20tertarik%20dengan%20Paket%20Professional" target="_blank" class="btn-outline">Mulai Proyek Premium</a>
+                    <a href="#order-form" onclick="selectPackage('Professional')" class="btn-outline">Mulai Proyek Premium</a>
                 </div>
  
                 <!-- Enterprise Plan -->
@@ -587,8 +587,197 @@
                         <li><i class="fa-solid fa-check"></i> Social Media Kit (Templates)</li>
                         <li><i class="fa-solid fa-check"></i> Copyright Transfer Document</li>
                     </ul>
-                    <a href="https://wa.me/{{ $settings->contact_whatsapp }}?text=Halo,%20saya%20tertarik%20dengan%20Paket%20Enterprise" target="_blank" class="btn-outline">Hubungi Kami</a>
+                    <a href="#order-form" onclick="selectPackage('Full Identity')" class="btn-outline">Hubungi Kami</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="ulasan" style="background-color: var(--bg-base); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+        <div class="container">
+            <h2 class="section-title">Ulasan <span class="text-gradient">Klien</span></h2>
+            <p class="section-subtitle">Apa kata mereka yang telah mempercayakan brand identity-nya kepada kami.</p>
+            
+            <div class="features-grid">
+                @if($testimonials->isNotEmpty())
+                    @foreach($testimonials as $testimonial)
+                    <div class="feature-card" style="padding: 30px;">
+                        <div style="color: #fbbf24; margin-bottom: 15px;">
+                            @for($i=1; $i<=$testimonial->rating; $i++)
+                                <i class="fa-solid fa-star"></i>
+                            @endfor
+                            @for($i=$testimonial->rating+1; $i<=5; $i++)
+                                <i class="fa-regular fa-star"></i>
+                            @endfor
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px; color: var(--text-secondary);">"{{ $testimonial->content }}"</p>
+                        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--text-primary);">{{ $testimonial->client_name }}</h4>
+                        <p style="font-size: 0.85rem; color: var(--brand-color2);">{{ $testimonial->company_name ?? 'Client' }}</p>
+                    </div>
+                    @endforeach
+                @else
+                    <!-- Fallback Testimonials -->
+                    <div class="feature-card" style="padding: 30px;">
+                        <div style="color: #fbbf24; margin-bottom: 15px;">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px; color: var(--text-secondary);">"Desain logo dari Logofolio sangat mendalam dan filosofis. Sangat merepresentasikan identitas skincare kami."</p>
+                        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--text-primary);">Aura Skincare</h4>
+                        <p style="font-size: 0.85rem; color: var(--brand-color2);">Skincare Brand</p>
+                    </div>
+                    <div class="feature-card" style="padding: 30px;">
+                        <div style="color: #fbbf24; margin-bottom: 15px;">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px; color: var(--text-secondary);">"Sangat profesional! Pengerjaan cepat, revisi dilayani dengan sabar sampai kami mendapatkan logo geometric yang tepat."</p>
+                        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--text-primary);">Nexus Tech</h4>
+                        <p style="font-size: 0.85rem; color: var(--brand-color2);">Tech Startup</p>
+                    </div>
+                    <div class="feature-card" style="padding: 30px;">
+                        <div style="color: #fbbf24; margin-bottom: 15px;">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px; color: var(--text-secondary);">"Visual branding yang sangat kuat. Coffee shop kami kini tampil beda dan menarik banyak pelanggan baru."</p>
+                        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--text-primary);">Brew & Co.</h4>
+                        <p style="font-size: 0.85rem; color: var(--brand-color2);">F&B Brand</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!-- Brief & Order Form Section -->
+    <section id="order-form" style="background-color: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+        <div class="container">
+            <h2 class="section-title">Mulai <span class="text-gradient">Proyek Logo Anda</span></h2>
+            <p class="section-subtitle">Isi brief desain di bawah untuk membuat pesanan dan mendapatkan invoice resmi.</p>
+            
+            <div style="max-width: 800px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 40px; backdrop-filter: blur(10px);">
+                @if ($errors->any())
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 12px; padding: 20px; margin-bottom: 30px; color: #ef4444;">
+                        <ul style="list-style: inside; font-size: 0.95rem;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('order.store') }}" style="display: flex; flex-direction: column; gap: 25px;">
+                    @csrf
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Nama Lengkap</label>
+                            <input type="text" name="client_name" value="{{ old('client_name') }}" required style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem;" placeholder="Masukkan nama Anda">
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Email Aktif</label>
+                            <input type="email" name="client_email" value="{{ old('client_email') }}" required style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem;" placeholder="contoh@domain.com">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Nomor WhatsApp</label>
+                            <input type="text" name="client_phone" value="{{ old('client_phone') }}" required style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem;" placeholder="Contoh: 08123456789">
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Pilih Paket Layanan</label>
+                            <select id="package_select" name="package_type" required style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem; width: 100%;">
+                                <option value="" disabled selected>Pilih Paket</option>
+                                <option value="Startup" {{ old('package_type') == 'Startup' ? 'selected' : '' }}>Startup (Rp 1,5 Jt)</option>
+                                <option value="Professional" {{ old('package_type') == 'Professional' ? 'selected' : '' }}>Professional (Rp 3,5 Jt)</option>
+                                <option value="Full Identity" {{ old('package_type') == 'Full Identity' ? 'selected' : '' }}>Full Identity (Rp 8,5 Jt)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; margin-top: 15px;">Brief Desain Logo</h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Nama Brand / Logo</label>
+                            <input type="text" name="logo_name" value="{{ old('logo_name') }}" required style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem;" placeholder="Nama yang ditulis di logo">
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Slogan / Tagline Logo (Opsional)</label>
+                            <input type="text" name="tagline" value="{{ old('tagline') }}" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem;" placeholder="Slogan di bawah logo">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Preferensi Warna (Opsional)</label>
+                            <input type="text" name="color_preferences" value="{{ old('color_preferences') }}" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem;" placeholder="Contoh: Biru muda, Emas, Hitam & Putih">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;">Deskripsi & Filosofi Logo</label>
+                        <textarea name="description_philosophy" rows="5" required style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; color: white; outline: none; font-size: 0.95rem; font-family: inherit; line-height: 1.6;" placeholder="Jelaskan bidang usaha Anda, target audiens, filosofi atau gaya desain yang diinginkan (minimalis, elegan, maskulin, dll.)">{{ old('description_philosophy') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn-gradient" style="margin-top: 15px; padding: 16px; font-size: 1.1rem; text-align: center; border: none; cursor: pointer; display: block; width: 100%;">
+                        Kirim Brief & Buat Pesanan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog CMS Section -->
+    <section id="blog" style="background-color: var(--bg-base);">
+        <div class="container">
+            <h2 class="section-title">Tips & <span class="text-gradient">Branding</span></h2>
+            <p class="section-subtitle">Artikel edukasi seputar desain logo dan membangun identitas brand bisnis Anda.</p>
+            
+            <div class="features-grid">
+                @if($posts->isNotEmpty())
+                    @foreach($posts as $post)
+                    <div class="feature-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column; height: 100%;">
+                        @if($post->image_path)
+                            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-subtle);">
+                        @else
+                            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Design Article" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-subtle);">
+                        @endif
+                        <div style="padding: 25px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                            <div>
+                                <span style="font-size: 0.8rem; color: var(--brand-color2); text-transform: uppercase; font-weight: 600;">Tips Desain</span>
+                                <h3 style="font-size: 1.25rem; margin: 10px 0 15px 0; font-family: 'Outfit', sans-serif; line-height: 1.4; color: var(--text-primary);">{{ $post->title }}</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">{{ Str::limit(strip_tags($post->content), 120) }}</p>
+                            </div>
+                            <a href="{{ route('blog.show', $post->slug) }}" class="text-gradient" style="text-decoration: none; font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 5px;">
+                                Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @endforeach
+                @else
+                    <!-- Fallback Articles -->
+                    <div class="feature-card" style="padding: 0; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Logo Design Principles" style="width: 100%; height: 200px; object-fit: cover;">
+                        <div style="padding: 25px;">
+                            <span style="font-size: 0.8rem; color: var(--brand-color2); text-transform: uppercase; font-weight: 600;">Branding</span>
+                            <h3 style="font-size: 1.25rem; margin: 10px 0 15px 0; font-family: 'Outfit', sans-serif; color: var(--text-primary);">5 Prinsip Utama Desain Logo yang Efektif</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">Ketahui apa saja hal krusial yang membuat sebuah logo diingat seumur hidup oleh pelanggan Anda...</p>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 600;">Segera Hadir</span>
+                        </div>
+                    </div>
+                    <div class="feature-card" style="padding: 0; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Color Psychology" style="width: 100%; height: 200px; object-fit: cover;">
+                        <div style="padding: 25px;">
+                            <span style="font-size: 0.8rem; color: var(--brand-color2); text-transform: uppercase; font-weight: 600;">Psikologi</span>
+                            <h3 style="font-size: 1.25rem; margin: 10px 0 15px 0; font-family: 'Outfit', sans-serif; color: var(--text-primary);">Psikologi Warna dalam Desain Logo</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">Mengapa warna merah memicu rasa lapar dan warna biru memicu kepercayaan? Simak ulasan psikologi warna...</p>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 600;">Segera Hadir</span>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
@@ -742,12 +931,15 @@
                 card.style.boxShadow = `${-rotateY}px ${rotateX}px 30px rgba(0,0,0,0.5)`;
             });
 
-            // Reset when mouse leaves
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-                card.style.boxShadow = 'none';
-            });
         });
+
+        // Function to select package in order form dropdown
+        function selectPackage(packageName) {
+            const select = document.getElementById('package_select');
+            if (select) {
+                select.value = packageName;
+            }
+        }
     </script>
 </body>
 </html>
