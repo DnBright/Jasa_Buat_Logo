@@ -493,7 +493,7 @@
                 @if($portfolios->isNotEmpty())
                     @foreach($portfolios as $portfolio)
                     <div class="portfolio-item">
-                        <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}">
+                        <img src="{{ \Illuminate\Support\Str::startsWith($portfolio->image_path, ['http://', 'https://']) ? $portfolio->image_path : asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}">
                         <div class="portfolio-overlay">
                             <h3>{{ $portfolio->title }}</h3>
                             <p>{{ $portfolio->category }}</p>
