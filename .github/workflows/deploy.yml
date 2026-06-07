@@ -1,0 +1,168 @@
+name: Deploy via FTP
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - 'CLAUDE.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'tests/**'
+      - 'phpunit.xml'
+      - 'eslint.config.js'
+      - '.prettier*'
+      - 'pint.json'
+      - 'tsconfig.json'
+      - 'logo mentahan.png'
+      - 'git_status.txt'
+      - 'test_upload.txt'
+
+jobs:
+  web-deploy:
+    name: Deploy Website
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Latest Code
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+        coverage: none
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: |
+        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache Composer Dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Install Composer Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install & Build Assets
+      run: |
+        npm install
+        npm run build
+
+    - name: Smart Sync Images via FTP
+      run: |
+        python3 << 'PYEOF'
+        import ftplib
+        import os
+
+        server   = "${{ secrets.FTP_SERVER }}"
+        username = "${{ secrets.FTP_USERNAME }}"
+        password = "${{ secrets.FTP_PASSWORD }}"
+        remote_base = "/public_html/buatlogojogja.gro.co.id/public/images"
+        local_base  = "public/images"
+
+        def ensure_dir(ftp, path):
+            try:
+                ftp.cwd(path)
+                return
+            except ftplib.error_perm:
+                pass
+
+            parts = path.strip('/').split('/')
+            try:
+                ftp.cwd('/')
+            except Exception:
+                pass
+
+            for part in parts:
+                if not part:
+                    continue
+                try:
+                    ftp.cwd(part)
+                except ftplib.error_perm:
+                    try:
+                        ftp.mkd(part)
+                        ftp.cwd(part)
+                    except ftplib.error_perm:
+                        pass
+
+        try:
+            ftp = ftplib.FTP(server)
+            ftp.login(username, password)
+            ftp.set_pasv(True)
+
+            for root, dirs, files in os.walk(local_base):
+                rel_root = os.path.relpath(root, local_base)
+                if rel_root == '.':
+                    remote_dir = remote_base
+                else:
+                    remote_dir = remote_base + '/' + rel_root.replace('\\', '/')
+
+                ensure_dir(ftp, remote_dir)
+
+                # Get existing files in the remote folder to avoid uploading duplicates
+                remote_files = {}
+                try:
+                    for name, facts in ftp.mlsd():
+                        if facts['type'] == 'file':
+                            remote_files[name] = int(facts.get('size', 0))
+                except Exception:
+                    try:
+                        for name in ftp.nlst():
+                            try:
+                                remote_files[name] = ftp.size(name)
+                            except Exception:
+                                remote_files[name] = -1
+                    except Exception:
+                        pass
+
+                for filename in files:
+                    local_file = os.path.join(root, filename)
+                    local_size = os.path.getsize(local_file)
+
+                    if filename in remote_files and remote_files[filename] == local_size:
+                        # Skip if it already exists on FTP with the same size
+                        continue
+
+                    print(f"Uploading: {local_file} -> {remote_dir}/{filename}")
+                    with open(local_file, 'rb') as f:
+                        ftp.storbinary(f'STOR {filename}', f)
+
+            ftp.quit()
+            print("All images synchronized successfully!")
+        except Exception as e:
+            print(f"FTP Image Upload Error: {e}")
+            raise
+        PYEOF
+
+    - name: Sync Files via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: /public_html/buatlogojogja.gro.co.id/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/tests/**
+          .env
+          phpunit.xml
+          README.md
+          **/vendor/**
+
+    - name: Trigger Post-Deployment Artisan Tasks
+      run: |
+        curl -i "https://buatlogojogja.gro.co.id/deploy-maintenance-trigger?token=bPXwtuggH5qk81"
