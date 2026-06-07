@@ -37,4 +37,3 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Pengguna baru berhasil ditambahkan.');
     }
 }
-}

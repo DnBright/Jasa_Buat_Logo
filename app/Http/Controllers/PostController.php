@@ -111,13 +111,9 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Artikel berhasil dihapus.');
     }
 
-    /**
-     * Show single public blog post.
-     */
     public function showPublic($slug)
     {
         $post = Post::where('slug', $slug)->where('status', 'published')->firstOrFail();
         return view('post_show', compact('post'));
     }
-}
 }

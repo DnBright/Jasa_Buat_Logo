@@ -90,14 +90,10 @@ class OrderController extends Controller
         return redirect()->route('invoice.show', $order->invoice_number);
     }
 
-    /**
-     * Display public invoice page for clients.
-     */
     public function showInvoice($invoice_number)
     {
         $order = Order::where('invoice_number', $invoice_number)->firstOrFail();
         $settings = SiteSetting::getSettings();
         return view('invoice', compact('order', 'settings'));
     }
-}
 }
