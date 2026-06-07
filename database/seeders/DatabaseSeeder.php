@@ -46,5 +46,8 @@ class DatabaseSeeder extends Seeder
             'category' => 'Corporate / Monogram',
             'image_path' => 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
         ]);
+
+        // Seed default Site Settings
+        \App\Models\SiteSetting::getSettings();
     }
 }

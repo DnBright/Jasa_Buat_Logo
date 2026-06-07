@@ -428,14 +428,14 @@
 
     <nav>
         <a href="#" class="logo-text">
-            <span class="logo-mark"></span> Logofolio.
+            <span class="logo-mark"></span> {{ $settings->site_name }}.
         </a>
         <ul class="nav-links">
             <li><a href="#layanan">Layanan</a></li>
             <li><a href="#portofolio">Karya</a></li>
             <li><a href="#harga">Paket Harga</a></li>
         </ul>
-        <a href="#kontak" class="btn-gradient">Konsultasi Gratis</a>
+        <a href="https://wa.me/{{ $settings->contact_whatsapp }}" target="_blank" class="btn-gradient">Konsultasi Gratis</a>
     </nav>
 
     <header class="hero">
@@ -443,9 +443,9 @@
         
         <div class="container" style="position: relative; z-index: 2; width: 100%;">
             <div class="hero-content">
-                <div class="tagline">Creative Branding Studio</div>
-                <h1>Desain Logo yang <br><span class="text-gradient">Mendefinisikan</span> Bisnis Anda.</h1>
-                <p>Kami tidak sekadar menggambar ikon. Kami merancang identitas visual yang strategis, orisinal, dan tak lekang oleh waktu untuk membedakan brand Anda dari kompetitor.</p>
+                <div class="tagline">{{ $settings->hero_tagline }}</div>
+                <h1>{!! $settings->hero_title !!}</h1>
+                <p>{{ $settings->hero_description }}</p>
                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                     <a href="#portofolio" class="btn-gradient" style="padding: 16px 35px; font-size: 1.1rem;">Lihat Portofolio</a>
                     <a href="#harga" class="btn-outline" style="width: auto; padding: 16px 35px; font-size: 1.1rem; background: transparent;">Pilih Paket</a>
@@ -539,13 +539,13 @@
         <div class="container">
             <h2 class="section-title">Investasi <span class="text-gradient">Identitas</span></h2>
             <p class="section-subtitle">Pilih paket desain yang sesuai dengan skala dan kebutuhan bisnis Anda.</p>
-
+ 
             <div class="pricing-grid">
                 <!-- Basic Plan -->
                 <div class="pricing-card tilt-card">
                     <h3>Startup</h3>
                     <p class="desc">Cocok untuk UMKM atau bisnis baru yang membutuhkan logo profesional dengan cepat.</p>
-                    <div class="price">Rp 1,5<span>Jt</span></div>
+                    <div class="price">{!! $settings->price_startup !!}</div>
                     <ul class="pricing-features">
                         <li><i class="fa-solid fa-check"></i> 2 Konsep Logo Pilihan</li>
                         <li><i class="fa-solid fa-check"></i> 3x Revisi Desain</li>
@@ -554,7 +554,7 @@
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> Brand Guidelines Book</li>
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> Desain Kartu Nama</li>
                     </ul>
-                    <a href="#" class="btn-outline">Pilih Startup</a>
+                    <a href="https://wa.me/{{ $settings->contact_whatsapp }}?text=Halo,%20saya%20tertarik%20dengan%20Paket%20Startup" target="_blank" class="btn-outline">Pilih Startup</a>
                 </div>
                 
                 <!-- Pro Plan -->
@@ -562,7 +562,7 @@
                     <div class="popular-badge">Direkomendasikan</div>
                     <h3>Professional</h3>
                     <p class="desc">Bagi bisnis menengah yang ingin membangun fondasi branding yang kuat dan konsisten.</p>
-                    <div class="price">Rp 3,5<span>Jt</span></div>
+                    <div class="price">{!! $settings->price_professional !!}</div>
                     <ul class="pricing-features">
                         <li><i class="fa-solid fa-check"></i> 4 Konsep Logo Premium</li>
                         <li><i class="fa-solid fa-check"></i> Revisi Tanpa Batas (Unlimited)</li>
@@ -571,14 +571,14 @@
                         <li><i class="fa-solid fa-check"></i> Desain Kartu Nama & Kop Surat</li>
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> 3D Logo Mockup Animation</li>
                     </ul>
-                    <a href="#" class="btn-outline">Mulai Proyek Premium</a>
+                    <a href="https://wa.me/{{ $settings->contact_whatsapp }}?text=Halo,%20saya%20tertarik%20dengan%20Paket%20Professional" target="_blank" class="btn-outline">Mulai Proyek Premium</a>
                 </div>
-
+ 
                 <!-- Enterprise Plan -->
                 <div class="pricing-card tilt-card">
                     <h3>Full Identity</h3>
                     <p class="desc">Rebranding total atau perusahaan berskala besar dengan kebutuhan desain menyeluruh.</p>
-                    <div class="price">Rp 8,5<span>Jt</span></div>
+                    <div class="price">{!! $settings->price_enterprise !!}</div>
                     <ul class="pricing-features">
                         <li><i class="fa-solid fa-check"></i> 6 Konsep Logo Eksklusif</li>
                         <li><i class="fa-solid fa-check"></i> Revisi Tanpa Batas & Prioritas</li>
@@ -587,25 +587,25 @@
                         <li><i class="fa-solid fa-check"></i> Social Media Kit (Templates)</li>
                         <li><i class="fa-solid fa-check"></i> Copyright Transfer Document</li>
                     </ul>
-                    <a href="#" class="btn-outline">Hubungi Kami</a>
+                    <a href="https://wa.me/{{ $settings->contact_whatsapp }}?text=Halo,%20saya%20tertarik%20dengan%20Paket%20Enterprise" target="_blank" class="btn-outline">Hubungi Kami</a>
                 </div>
             </div>
         </div>
     </section>
-
+ 
     <footer>
         <div class="container">
             <a href="#" class="logo-text footer-logo">
-                <span class="logo-mark"></span> Logofolio.
+                <span class="logo-mark"></span> {{ $settings->site_name }}.
             </a>
             <div class="social-links">
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-dribbble"></i></a>
-                <a href="#"><i class="fa-brands fa-behance"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="{{ $settings->instagram_url }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="{{ $settings->dribbble_url }}" target="_blank"><i class="fa-brands fa-dribbble"></i></a>
+                <a href="{{ $settings->behance_url }}" target="_blank"><i class="fa-brands fa-behance"></i></a>
+                <a href="{{ $settings->linkedin_url }}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             </div>
             <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                &copy; 2026 Logofolio Design Agency. Dibuat dengan presisi.<br>
+                &copy; 2026 {{ $settings->site_name }} Design Agency. Dibuat dengan presisi.<br>
                 Hak Cipta Dilindungi Undang-Undang.
             </p>
         </div>
